@@ -1,6 +1,7 @@
 package com.writeoncereadmany.testeverything;
 
 import com.writeoncereadmany.testeverything.examples.Book;
+import com.writeoncereadmany.testeverything.examples.Circle;
 import com.writeoncereadmany.testeverything.examples.Point;
 import org.junit.Test;
 
@@ -20,6 +21,7 @@ public class ClassFinderTest {
 
         assertThat(classes, containsInAnyOrder(
             Book.class,
+            Circle.class,
             Point.class
         ));
     }
@@ -32,6 +34,7 @@ public class ClassFinderTest {
             implementing("equals", Object.class));
 
         assertThat(classes, containsInAnyOrder(
+            Circle.class,
             Point.class
         ));
     }
