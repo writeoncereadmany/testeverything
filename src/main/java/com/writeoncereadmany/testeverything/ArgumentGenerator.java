@@ -3,7 +3,6 @@ package com.writeoncereadmany.testeverything;
 import com.pholser.junit.quickcheck.generator.Generator;
 import com.pholser.junit.quickcheck.generator.Generators;
 import com.pholser.junit.quickcheck.internal.GeometricDistribution;
-import com.pholser.junit.quickcheck.internal.ParameterTypeContext;
 import com.pholser.junit.quickcheck.internal.generator.GeneratorRepository;
 import com.pholser.junit.quickcheck.internal.generator.ServiceLoaderGeneratorSource;
 import com.pholser.junit.quickcheck.internal.generator.SimpleGenerationStatus;

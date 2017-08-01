@@ -3,6 +3,7 @@ package com.writeoncereadmany.testeverything;
 import com.writeoncereadmany.testeverything.examples.Book;
 import com.writeoncereadmany.testeverything.examples.Circle;
 import com.writeoncereadmany.testeverything.examples.Point;
+import com.writeoncereadmany.testeverything.examples.Polygon;
 import org.junit.Test;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class ClassFinderTest {
         assertThat(classes, containsInAnyOrder(
             Book.class,
             Circle.class,
-            Point.class
+            Point.class,
+            Polygon.class
         ));
     }
 
@@ -35,7 +37,8 @@ public class ClassFinderTest {
 
         assertThat(classes, containsInAnyOrder(
             Circle.class,
-            Point.class
+            Point.class,
+            Polygon.class
         ));
     }
 
