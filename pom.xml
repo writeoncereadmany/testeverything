@@ -36,6 +36,11 @@
             <version>2.0.0.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>java-hamcrest</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 
 </project>

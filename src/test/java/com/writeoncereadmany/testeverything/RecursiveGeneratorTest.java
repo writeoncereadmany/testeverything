@@ -9,19 +9,17 @@ import com.writeoncereadmany.testeverything.examples.Point;
 import com.writeoncereadmany.testeverything.examples.Polygon;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.Random;
 
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 
-public class ArgumentGeneratorTest {
+public class RecursiveGeneratorTest {
 
     private final SourceOfRandomness source = new SourceOfRandomness(new Random());
     private final SimpleGenerationStatus status = new SimpleGenerationStatus(new GeometricDistribution(), source, 10);
-    private final ArgumentGenerator argGen = new ArgumentGenerator();
+    private final RecursiveGenerator argGen = new RecursiveGenerator();
 
     @Test
     public void canCreateInstancesOfCustomClasses() {
