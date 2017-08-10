@@ -6,11 +6,11 @@ import java.util.Objects;
 /**
  * Created by tomj on 01/08/2017.
  */
-public class Polygon {
+public class Polygon implements Shape {
 
-    private final List<Point> points;
+    private final List<? extends Point> points;
 
-    public Polygon(List<Point> points) {
+    public Polygon(List<? extends Point> points) {
         this.points = points;
     }
 

@@ -6,7 +6,6 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.writeoncereadmany.testeverything.ClassPredicates.implementing;
@@ -36,6 +35,7 @@ public class EqualsValidator {
     }
 
     private Stream<String> problemsWithEquals(Class<?> type) {
+        System.out.println("Checking to see if we have any problems with equals for " + type);
         try {
             Constructor<?> constructor = Stream.of(type.getConstructors())
                 .sorted(comparingInt(Constructor::getParameterCount))

@@ -1,9 +1,9 @@
 package com.writeoncereadmany.testeverything;
 
-import com.writeoncereadmany.testeverything.examples.Book;
-import com.writeoncereadmany.testeverything.examples.Circle;
-import com.writeoncereadmany.testeverything.examples.Point;
-import com.writeoncereadmany.testeverything.examples.Polygon;
+import com.writeoncereadmany.testeverything.examples.*;
+import com.writeoncereadmany.testeverything.someclasses.WithEqualsOne;
+import com.writeoncereadmany.testeverything.someclasses.WithEqualsTwo;
+import com.writeoncereadmany.testeverything.someclasses.WithoutEquals;
 import org.junit.Test;
 
 import java.util.List;
@@ -18,13 +18,12 @@ public class ClassFinderTest {
     public void canFindAllClassesInExamplePackage() throws Exception {
         List<Class<?>> classes = ClassFinder.findClasses(
             ClassFinderTest.class.getClassLoader(),
-            "com.writeoncereadmany.testeverything.examples");
+            "com.writeoncereadmany.testeverything.someclasses");
 
         assertThat(classes, containsInAnyOrder(
-            Book.class,
-            Circle.class,
-            Point.class,
-            Polygon.class
+            WithEqualsOne.class,
+            WithEqualsTwo.class,
+            WithoutEquals.class
         ));
     }
 
@@ -32,13 +31,12 @@ public class ClassFinderTest {
     public void canFindAllClassesWithMethod() throws Exception {
         List<Class<?>> classes = ClassFinder.findClasses(
             ClassFinderTest.class.getClassLoader(),
-            "com.writeoncereadmany.testeverything.examples",
+            "com.writeoncereadmany.testeverything.someclasses",
             implementing("equals", Object.class));
 
         assertThat(classes, containsInAnyOrder(
-            Circle.class,
-            Point.class,
-            Polygon.class
+            WithEqualsOne.class,
+            WithEqualsTwo.class
         ));
     }
 

@@ -2,7 +2,7 @@ package com.writeoncereadmany.testeverything.examples;
 
 import java.util.Objects;
 
-public class Circle {
+public class Circle implements Shape {
     private final int radius;
     private final Point centre;
 

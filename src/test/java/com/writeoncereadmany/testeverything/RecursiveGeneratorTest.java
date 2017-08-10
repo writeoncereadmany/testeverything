@@ -4,9 +4,7 @@ import com.pholser.junit.quickcheck.generator.Generator;
 import com.pholser.junit.quickcheck.internal.GeometricDistribution;
 import com.pholser.junit.quickcheck.internal.generator.SimpleGenerationStatus;
 import com.pholser.junit.quickcheck.random.SourceOfRandomness;
-import com.writeoncereadmany.testeverything.examples.Circle;
-import com.writeoncereadmany.testeverything.examples.Point;
-import com.writeoncereadmany.testeverything.examples.Polygon;
+import com.writeoncereadmany.testeverything.examples.*;
 import org.junit.Test;
 
 import java.util.Random;
@@ -23,29 +21,55 @@ public class RecursiveGeneratorTest {
 
     @Test
     public void canCreateInstancesOfCustomClasses() {
-        Generator<?> generator = argGen.generatorFor(Point.class);
-
-        Object output = generator.generate(source, status);
-
-        assertThat(output, instanceOf(Point.class));
+        assertCanGenerateInstanceOf(Point.class);
     }
 
     @Test
     public void canCreateInstancesOfCustomClassesWithCustomArguments() {
-        Generator<?> generator = argGen.generatorFor(Circle.class);
+        assertCanGenerateInstanceOf(Circle.class);
+    }
 
-        Object output = generator.generate(source, status);
-
-        assertThat(output, instanceOf(Circle.class));
+    @Test
+    public void canCreateInstancesOfInterfaces() {
+        assertCanGenerateInstanceOf(Shape.class);
     }
 
     @Test
     public void canCreateInstancesOfCustomClassesWithGenericArgumentsOfCustomTypes() {
-        Generator<?> generator = argGen.generatorFor(Polygon.class);
+        assertCanGenerateInstanceOf(Polygon.class);
+    }
+
+    @Test
+    public void canCreateInstancesOfCustomClassesWithFunctionalInterfacesOverCustomTypes() {
+        assertCanGenerateInstanceOf(ColorFilter.class);
+    }
+
+    @Test
+    public void canCreateInstancesOfCustomClassesWithVarargsOfCustomTypes() {
+        assertCanGenerateInstanceOf(Picture.class);
+    }
+
+    @Test
+    public void canCreateInstancesOfEnums() {
+        assertCanGenerateInstanceOf(Color.class);
+    }
+
+    @Test
+    public void canCreateInstancesOfCustomTypesWithPrivateConstructors() {
+        assertCanGenerateInstanceOf(Rectangle.class);
+    }
+
+    @Test
+    public void canCreateInstancesOfAbstractTypes() {
+        assertCanGenerateInstanceOf(Converging.class);
+    }
+
+    private void assertCanGenerateInstanceOf(Class<?> param) {
+        Generator<?> generator = argGen.generatorFor(param);
 
         Object output = generator.generate(source, status);
 
-        assertThat(output, instanceOf(Polygon.class));
+        assertThat(output, instanceOf(param));
     }
 
 }
