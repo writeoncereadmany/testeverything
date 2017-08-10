@@ -1,6 +1,5 @@
 package com.writeoncereadmany.testeverything;
 
-import com.writeoncereadmany.testeverything.examples.*;
 import com.writeoncereadmany.testeverything.someclasses.WithEqualsOne;
 import com.writeoncereadmany.testeverything.someclasses.WithEqualsTwo;
 import com.writeoncereadmany.testeverything.someclasses.WithoutEquals;

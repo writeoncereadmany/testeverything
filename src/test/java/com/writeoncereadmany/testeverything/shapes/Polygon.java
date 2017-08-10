@@ -1,4 +1,4 @@
-package com.writeoncereadmany.testeverything.examples;
+package com.writeoncereadmany.testeverything.shapes;
 
 import java.util.List;
 import java.util.Objects;

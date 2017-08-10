@@ -8,12 +8,12 @@ public class EqualsValidatorTest {
 
     @Test
     public void doesNotIdentifyProblemsWithEqualsWhenAllFieldsChecked() throws Exception {
-        validator.assertEqualsMethodsSound("com.writeoncereadmany.testeverything.examples");
+        validator.assertEqualsMethodsSound("com.writeoncereadmany.testeverything.shapes");
     }
 
     @Test(expected = AssertionError.class)
     public void identifiesProblemsWithEqualsMethodWhenOneFieldIgnored() throws Exception {
-        validator.assertEqualsMethodsSound("com.writeoncereadmany.testeverything.counterexamples");
+        validator.assertEqualsMethodsSound("com.writeoncereadmany.testeverything.brokenshapes");
     }
 
 }

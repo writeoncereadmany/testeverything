@@ -5,16 +5,17 @@ import co.unruly.control.result.Result;
 import com.google.common.reflect.ClassPath;
 import com.pholser.junit.quickcheck.generator.Ctor;
 import com.pholser.junit.quickcheck.generator.Generator;
-import com.pholser.junit.quickcheck.internal.GeometricDistribution;
 import com.pholser.junit.quickcheck.internal.ParameterTypeContext;
 import com.pholser.junit.quickcheck.internal.Weighted;
-import com.pholser.junit.quickcheck.internal.generator.*;
+import com.pholser.junit.quickcheck.internal.generator.ArrayGenerator;
+import com.pholser.junit.quickcheck.internal.generator.CompositeGenerator;
+import com.pholser.junit.quickcheck.internal.generator.GeneratorRepository;
+import com.pholser.junit.quickcheck.internal.generator.ServiceLoaderGeneratorSource;
 import com.pholser.junit.quickcheck.random.SourceOfRandomness;
 
+import java.io.IOException;
 import java.lang.reflect.*;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -29,8 +30,10 @@ import static java.util.stream.Collectors.toList;
 
 public class RecursiveGenerator {
 
+    private static final Set<ClassPath.ClassInfo> CLASS_INFOS = aggressivelyLoadClasses();
+    private static final Map<ClassPath.ClassInfo, Result<Class<?>, String>> CLASSES = new HashMap<>();
+
     private final SourceOfRandomness source = new SourceOfRandomness(new Random());
-    private final SimpleGenerationStatus status = new SimpleGenerationStatus(new GeometricDistribution(), source, 10);
     private final GeneratorRepository repo = new GeneratorRepository(source).register(new ServiceLoaderGeneratorSource());
 
     public Generator<?> generatorFor(Type param) {
@@ -102,11 +105,9 @@ public class RecursiveGenerator {
 
     private Generator<?> generatorForSubtypesOf(Class<?> iface) {
         try {
-            List<Weighted<Generator<?>>> implementationGenerators = ClassPath
-                .from(getClass().getClassLoader())
-                .getAllClasses()
+            List<Weighted<Generator<?>>> implementationGenerators = CLASS_INFOS
                 .stream()
-                .map(tryTo(ClassPath.ClassInfo::load))
+                .map(c -> CLASSES.computeIfAbsent(c, tryTo(ClassPath.ClassInfo::load)))
                 .flatMap(Resolvers.successes())
                 .filter(iface::isAssignableFrom)
                 .filter(not(Class::isInterface))
@@ -141,17 +142,27 @@ public class RecursiveGenerator {
         Stream.of(types).map(this::generatorFor).forEach(repo::register);
     }
 
-    private static <I, O, T extends Throwable> Function<I, Result<O, Throwable>> tryTo(TantrumFunction<I, O, T> f) {
+    private static <I, O, T extends Throwable> Function<I, Result<O, String>> tryTo(TantrumFunction<I, O, T> f) {
         return i -> {
             try {
                 return success(f.apply(i));
             } catch (Throwable t) {
-                return failure(t);
+                return failure("could not load");
             }
         };
     }
 
+    @FunctionalInterface
     private interface TantrumFunction<I, O, T extends Throwable> {
+
         O apply(I input) throws T;
+    }
+
+    private static Set<ClassPath.ClassInfo> aggressivelyLoadClasses() {
+        try {
+            return ClassPath.from(RecursiveGenerator.class.getClassLoader()).getAllClasses();
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot find CLASSES available on the classpath: this is not an ideal situation to be in." + e);
+        }
     }
 }

@@ -4,12 +4,13 @@ import com.pholser.junit.quickcheck.generator.Generator;
 import com.pholser.junit.quickcheck.internal.GeometricDistribution;
 import com.pholser.junit.quickcheck.internal.generator.SimpleGenerationStatus;
 import com.pholser.junit.quickcheck.random.SourceOfRandomness;
-import com.writeoncereadmany.testeverything.examples.*;
+import com.writeoncereadmany.testeverything.datastructures.ConsList;
+import com.writeoncereadmany.testeverything.shapes.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 
@@ -62,6 +63,12 @@ public class RecursiveGeneratorTest {
     @Test
     public void canCreateInstancesOfAbstractTypes() {
         assertCanGenerateInstanceOf(Converging.class);
+    }
+
+    @Test
+    @Ignore
+    public void canCreateInstancesOfRecursiveTypes() {
+        assertCanGenerateInstanceOf(ConsList.class);
     }
 
     private void assertCanGenerateInstanceOf(Class<?> param) {

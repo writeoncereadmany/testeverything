@@ -1,6 +1,6 @@
-package com.writeoncereadmany.testeverything.counterexamples;
+package com.writeoncereadmany.testeverything.brokenshapes;
 
-import com.writeoncereadmany.testeverything.examples.Point;
+import com.writeoncereadmany.testeverything.shapes.Point;
 
 import java.util.Objects;
 
